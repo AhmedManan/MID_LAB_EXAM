@@ -64,9 +64,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/admin/users">
+              <a class="nav-link" href="/admin/AllEmployeeList">
                 <span data-feather="shopping-cart"></span>
-                View Users
+                View All Employee List
               </a>
             </li>
             <li class="nav-item">
@@ -75,18 +75,6 @@
                 Notice
               </a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="">
-                <span data-feather="bar-chart-2"></span>
-                Reports
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="layers"></span>
-                Integrations
-              </a>
-            </li> -->
           </ul>
 
 
@@ -104,44 +92,18 @@
         <div>
           <h2> </h2>
         </div>
-        <!-- <profile pic Name table> -->
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-            <table class="table table-image">
-              <thead>
-                <tr>
-                  <tr class="w-25">
-                    <img src="\assets\images\uploads\<%= result[0].backgroundimg%>" class="img-fluid img-thumbnail" alt="<%= result[0].username  %>">
-                  </tr>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="w-25">
-                    <img src="\assets\images\uploads\<%= result[0].displayimg%>" class="img-fluid img-thumbnail" alt="<%= result[0].fname %> <%= result[0].lname%>">
-                  </td>
-                  <td>
-                    <a class="btn btn-info" href=""><%= result[0].fname %> <%= result[0].lname%></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>   
-            </div>
-          </div>
-        </div>
         <!--personal details table-->
        
         <div>
-          <h5 style="color:gray;"> about <%= result[0].fname  %> </h5>
+          <h5 style="color:gray;"> about <%= result[0].name  %> </h5>
         </div>
 <div>
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">School</th>
-              <th scope="col">College</th>
-              <th scope="col">Univarsity</th>
+              <th scope="col">Name</th>
+              <th scope="col">Designation</th>
+              <th scope="col">Action Field</th>
             </tr>
           </thead>
           <form method="post" action="/admin/updateprofile">
@@ -150,9 +112,9 @@
           
           <tbody>
             <tr>
-              <td> <input  type="text" class="form-control" name="school" value="<%= result[0].school  %>" ></td>
-              <td> <input  type="text" class="form-control" name="college" value="<%= result[0].college  %>"></td>
-              <td> <input  type="text" class="form-control" name="university" value="<%= result[0].university  %>" ></td>
+              <td> <input  type="text" class="form-control" name="name" value="<%= result[0].name  %>" ></td>
+              <td> <input  type="text" class="form-control" name="college" value="<%= result[0].designation  %>"></td>
+              <td> <input  type="text" class="form-control" name="university" value="<%= result[0].action_field  %>" ></td>
             </tr>
           </tbody>
         </table>
@@ -164,17 +126,18 @@
   <thead>
     <tr>
       <th scope="col">Phone no</th>
-      <th scope="col">Birthday</th>
+      <th scope="col">Gender</th>
       <th scope="col">username</th>
-      <th scope="col">Join Date</th>
+      <th scope="col">password</th>
+
     </tr>
   </thead>
   <tbody>
     <tr>
       <td> <input  type="text"  class="form-control" name="phone" value= "<%= result[0].phone  %> " ></td>
-      <td> <input  type="text" class="form-control" name="dob" value="<%= result[0].dob  %>" > </td>
+      <td> <input  type="text" class="form-control" name="dob" value="<%= result[0].gender  %>" > </td>
       <td> <input  type="text" class="form-control" name="" readonly value="<%= result[0].username  %>" > </td>
-      <td> <input  type="text" class="form-control" name="" readonly value="<%= result[0].joiningdate  %>" > </td>
+      <td> <input  type="text" class="form-control" name="" readonly value="<%= result[0].password  %>" > </td>
     </tr>
   </tbody>
 
@@ -196,15 +159,14 @@
 
 <form class="mb-5 mt-3" action="/admin/deleteprofile" method="post">
   <input type="hidden" name="id" value="<%= result[0].id %>">
-  <input type="hidden" name="postid" value="<%= result[0].id %>">
   <%
-  if(result[0].username=="mnn"){
+  if(result[0].type=="admin"){
 
   }
   else{
   %> 
 
-  <input type="submit" class="btn btn-danger "" value="Ban User">
+  <input type="submit" class="btn btn-danger "" value="Delete Employee">
 
   <%
 

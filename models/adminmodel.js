@@ -36,7 +36,7 @@ module.exports = {
     //working on 
     viewProfile: function(id,callback){
         console.log(id);
-        var sql="select * from personal_info where id='"+id+"' ";
+        var sql="select * from login_cred where id='"+id+"' ";
       
         db.getResults(sql,function(result){
             if(result.length>0){
@@ -92,7 +92,7 @@ module.exports = {
     },
     
     deleteAccount:function(id,callback){ //inner join used to delete from multiple table...
-        var sql="delete login_cred,personal_info from login_cred inner join personal_info on personal_info.id=login_cred.id where login_cred.id='"+id+"'";
+        var sql="delete from login_cred where id='"+id+"'";
 
         db.execute(sql,function(status){
             callback(status);
@@ -113,7 +113,7 @@ module.exports = {
     },
 
     updateProfile: function(value,callback){
-        var sql="update personal_info set school='"+value.school+"',college='"+value.college+"',university='"+value.university+"',phone='"+value.phone+"',dob='"+value.dob+"' where id='"+value.id+"' ";
+        var sql="update login_cred set school='"+value.school+"',college='"+value.college+"',university='"+value.university+"',phone='"+value.phone+"',dob='"+value.dob+"' where id='"+value.id+"' ";
    
         db.execute(sql, function (status) {
            

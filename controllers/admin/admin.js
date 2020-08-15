@@ -63,8 +63,8 @@ router.get('/viewpost/:id', function(req, res){
 //new working for profile view
 router.get('/viewprofile/:id', function(req, res){
 
-        var pid = req.params.id;
-        adminmodel.viewProfile(pid,function(result){
+        var id = req.params.id;
+        adminmodel.viewProfile(id,function(result){
                 res.render('admin/adminviewprofile',{result:result,usertype:req.session.usertypes});
         })         
 	
@@ -103,11 +103,11 @@ router.post('/deleteprofile', function(req, res){
         console.log(id);
         adminmodel.deleteAccount(id,function(status){
                 if(status){
-                        res.redirect('/admin/users');
+                        res.redirect('/admin/AllEmployeeList');
                 }
                 else{
 
-                        res.redirect('/admin/users');
+                        res.redirect('/admin/AllEmployeeList');
 
 
                 }
