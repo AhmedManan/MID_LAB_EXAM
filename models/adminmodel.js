@@ -122,6 +122,18 @@ module.exports = {
     });
 
 
+    },
+
+    AddProfile: function(value,callback){
+        var sql= "INSERT INTO `login_cred`( `id`, `name`, `pid`, `username`, `email`, `password`, `type`, `phone`, `gender`, `designation`, `action_field`) VALUES ('"+ result.id +"', '"+ result.name +"', '"+ result.id +"', '"+result.username +"', '"+ result.email +"', '"+ result.password +"', 'member', '"+ result.phone +"','"+ result.gender +"', '"+ result.id +"','"+ result.designation +"', '"+ result.actionfield +"')";
+   
+        db.execute(sql, function (status) {
+           
+            callback(status);
+
+    });
+
+
     }
 
 

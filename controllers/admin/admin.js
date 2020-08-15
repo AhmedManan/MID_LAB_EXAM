@@ -32,15 +32,19 @@ router.get('/report', function(req, res){
 	
 });
 
+router.get('/AddEmployee', function(req, res){
+
+
+                res.render('admin/addemployee');
+	
+});
+
 router.get('/AllEmployeeList', function(req, res){
 
         adminmodel.ViewUsers(function(result){
 
                 res.render('admin/adminusers',{result:result});
         })
-
-    
-   
 	
 });
 
@@ -153,6 +157,39 @@ router.post('/updateprofile', function(req, res){
         }
 
         adminmodel.updateProfile(value,function(status){
+
+                if(status){
+                        res.redirect('/admin');
+                }
+                else{
+
+                        res.redirect('/admin');
+
+
+                }
+
+        })
+
+
+});
+
+router.post('/AddEmployee', function(req, res){
+
+        var value={
+                id:req.body.id,
+                name: req.body.school,
+                pid: req.body.id,
+                username: req.body.username,
+                email: req.body.email,
+                password: req.body.password,
+                type: req.body.type,
+                phone: req.body.phone,
+                gender: req.body.gender,
+                designation: req.body.designation,
+                actionfield: req.body.actionfield
+        }
+
+        adminmodel.AddProfile(value,function(status){
 
                 if(status){
                         res.redirect('/admin');
