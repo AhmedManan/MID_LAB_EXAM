@@ -1,0 +1,55 @@
+*{
+	font-family: Century gothic; 
+}
+#main{
+	width: 100%;
+	height: 100vh;
+}
+body{
+	font-size: 14px;
+}
+a.logolink{
+
+}
+div.main{
+	height:100px;
+	width: 100%;
+	margin:0;
+	padding: 0;
+	background-color: #204051;
+	line-height: 100px;
+	border-bottom: 5px solid #cae8d5;
+}
+div.main nav{
+	display: grid;
+	grid-template-columns: 1fr 3fr .5fr .5fr .5fr .5fr 1fr; 
+	grid-gap: 1px;
+	
+}
+img.envelope{
+	margin-top: 40px;
+}
+img.bell{
+	margin-top: 38px;
+}
+div.main nav input[type=text]{
+	width: 50%;
+	border: 4px solid #cae8d5;
+	border-radius: 4px;
+	outline: none;
+	padding: 8px;
+	margin-top: 30px;
+	margin-left:200px;
+}
+div.main nav a{
+	text-decoration: none;
+	color:#ffff;
+	padding: 40px;
+	font-size: 150%
+}
+div.main nav img.logo{
+	float:left;
+	margin-left: 20px;
+	margin-top: 10px;
+	position: absolute;
+}

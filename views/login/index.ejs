@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <form method="post" id="myform">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <fieldset>
+                <legend>SignIn</legend>
+                <table>
+                    <tr>
+                        <td>username</td>
+                        <td><input type="text" name="username" id="username"></td>
+                        <td><span id="hidden1" style="color: red"></span></td>
+                    </tr>
+                    <tr>
+                        <td>password</td>
+                        <td><input type="password" name="password" id ="password"></td>
+                        <td><span id="hidden2" style="color: red"></span></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="remember" id="remember">Remember me</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" name="submit" value="Submit"></td>
+                    </tr>
+                    <tr>
+                        <td> <a href="/registration">Create a new id</a></td>   
+                    </tr>
+                    <div id="warn-div" style="color: red"></div>
+                </table>
+            </fieldset>
+        </form>
+        <script>
+        $('#myform').submit(function (e) {
+            e.preventDefault();
+            var error = false;
+            var username=$('#username').val();
+            var password=$('#password').val();
+            console.log(username+password);
+            if(username == ""){
+                $('#hidden1').html("Enter username");
+                error = true;
+            }
+            else{
+                $('#hidden1').html("");
+            }
+            if(password == ""){
+                $('#hidden2').html("Enter password");
+                error = true;
+            }
+            else{
+                $('#hidden2').html("");  
+            }
+            if(!error)
+            {   
+                $('#username').html("");
+                $('#password').html("");
+                $.ajax({
+                    url: '/login',
+                    method: 'POST',
+                    dataType: 'JSON',
+                    data:{
+                        username: $('#username').val(),
+                        password: $('#password').val(),
+                        remember: $('#remember').prop('checked')
+                    },
+                    success: function (data) {
+                        if (data.status == 'valid') {
+                            console.log('else');
+                            window.location.href = '/home';
+                        } else {
+                            $('#warn-div').html('Incorrect Login Information');
+                        }
+                    },
+                });
+            }
+
+        });
+    </script>
+    </body>
+</html>

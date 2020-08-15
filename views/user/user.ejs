@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/date.js"></script>
+<script>
+
+</script>
+
+<%- include ('../partials/header.ejs') %>
+
+<body>
+    <div>
+        <div>
+            <table>
+                <% posts.forEach(post => { %>
+                    <tr>
+                        <td>
+                            <%=post.poster%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <%=post.description%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <% if (post.media) { %>
+                                <img src="<%=post.media%>" alt="" srcset="">
+                            <% } %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td width='50%'>
+                                        Like (<%=post.likeCount%>)
+                                    </td>
+                                    <td width='50%'>
+                                        Share
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <% post.comments.forEach(comment => { %>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <a href="/profile/<%=comment.posterid%>"><%=comment.poster%>:</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <%=comment.description%>
+                                        </td>
+                                    </tr>
+                                </table>
+                            <% }); %>    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 100%;">
+                            <input type="text" name="comment" class="inpCom" id="<%=post.id%>" style="width: 100%;">
+                        </td>
+                        <td style="width: min-content;">
+                            <button class="btnComPost" id="<%=post.id%>">Send</button>
+                        </td>
+                    </tr>
+                <% }); %>  
+            </table>
+        </div>
+    </div>
+</body>
+</html>

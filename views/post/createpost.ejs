@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chotushkon</title>
+	<link rel="stylesheet" href="/assets/css/post/createpost.css">
+	<%- include ('../partials/header.ejs') %>
+</head>
+<body>
+	<div class="postpanel">
+		<div class="post">
+			<form method="post" id="postform" enctype="multipart/form-data">
+				<span style="color:red"><%= error%></span>
+				<table>
+					<tr>
+						<td colspan="2"><textarea id="postDesc" name="postDesc" rows="4"  placeholder="What are you thinking ?" required="required"></textarea></td>
+						<td class="privacy">Privacy:
+                            <select name="privacy" class="select">
+                                <option value="friends">Friends</option>
+                                <option value="public">Public</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </td>	
+					</tr>
+					<tr>
+						<td><span>Add Image</span></td>
+						<td><input type="file" name="postImage" id="postImage"></td>
+						<td><input type="submit" name="submit" value="Post"></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+</body>
+</html>

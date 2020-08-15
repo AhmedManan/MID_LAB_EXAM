@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+    <div>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <%=post.poster%>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <%=post.description%>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <% if (post.media) { %>
+                            <img src="assets/imgaes/uploads/<%=post.media%>" alt="" srcset="">
+                        <% } %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td width='50%'>
+                                    Like (<%=post.likeCount%>)
+                                </td>
+                                <td width='50%'>
+                                    Share
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <% post.comments.forEach(comment => { %>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="/profile/<%=comment.posterid%>"><%=comment.poster%>:</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <%=comment.description%>
+                                    </td>
+                                </tr>
+                            </table>
+                        <% }); %>    
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 100%;">
+                        <input type="text" name="comment" class="inpCom" id="<%=post.id%>" style="width: 100%;">
+                    </td>
+                    <td style="width: min-content;">
+                        <button class="btnComPost" id="<%=post.id%>">Send</button>
+                    </td>
+                </tr> 
+            </table>
+        </div>
+    </div>
+</body>
+</html>

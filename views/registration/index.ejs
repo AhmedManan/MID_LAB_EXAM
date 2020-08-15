@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registration</title>
+</head>
+<body>
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <form method="post" id="regform">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <fieldset>
+                <legend>Registration</legend>
+                <table>
+                	<tr>
+                        <td>First Name </td>
+                        <td><input type="text" name="fname" id="fname" max="50">*</td>
+                        <td><span id="error1" style="color: red"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name </td>
+                        <td><input type="text" name="lname" id="lname" max="50">*</td>
+                        <td><span id="error2" style="color: red"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Email </td>
+                        <td><input type="email" name="email" id="email" max="100">*</td>
+                        <td><span id="error3" style="color: red"></span><span id="dupEmail" style="color: red"></span></td>
+                        <td><input type="hidden" name="errEmail" id="errEmail"></td>
+                    </tr>
+                    <tr>
+                        <td>Username</td>
+                        <td><input type="text" name="username" id="username" max="10">*</td>
+                        <td><span id="error4" style="color: red"></span><span id="dupUsername" style="color: red"></span></td>
+                        <td><input type="hidden" name="errUsername" id="errUsername"></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><input type="password" name="password" id ="password" max="15" min="6" >*</td>
+                        <td><span id="error5" style="color: red"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Confirm password</td>
+                        <td><input type="password" name="cpassword" id ="cpassword" max="15" min="6" >*</td>
+                        <td><span id="error6" style="color: red"></span><span id="error7" style="color: red"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Date of birth</td>
+                        <td><input type="date" name="dob" id="dob" >*</td>
+                        <td><span id="error8" style="color: red"></span></td>
+                    </tr>
+                    <tr>
+                        <td>School</td>
+                        <td><input type="text" name="school" id="school" max="20"></td>
+                    </tr>
+                    <tr>
+                        <td>College</td>
+                        <td><input type="text" name="college" id="college" max="20"></td>
+                    </tr>
+                    <tr>
+                        <td>University</td>
+                        <td><input type="text" name="uni" id="uni" max="20"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" name="submit" value="Registration"></td>
+                    </tr>
+                    <div id="warn-div" style="color: red"></div>
+                </table>
+            </fieldset>
+        </form>
+        <script>
+        	$('#email').change(function(e)
+        	{	
+        		var email=$('#email').val();
+        		$.ajax({
+	                    url: 'registration/checking',
+	                    method: 'POST',
+	                    dataType: 'JSON',
+	                    data:{
+	            			email : email,
+	                    },
+	                    success: function (data) {
+	                    	console.log(data);
+	                        if (data.check == 'true') {
+	                        	$('#dupEmail').html("");
+	                            $('#errEmail').val("");
+	                            
+	                        } else {
+	                            $('#dupEmail').html("Email already exists");
+	                            $('#errEmail').val("error");
+
+	                        }
+	                    },
+	                });
+        	})
+
+        	$('#username').change(function(e)
+        	{	
+        		var uname=$('#username').val();
+        		$.ajax({
+	                    url: 'registration/checking',
+	                    method: 'POST',
+	                    dataType: 'JSON',
+	                    data:{
+	            			username : uname,
+	                    },
+	                    success: function (data) {
+	                        if (data.check == 'true') {
+	                            $('#dupUsername').html("");
+	                            $('#errUsername').val("");
+	                        } else {
+	                            $('#dupUsername').html("Username already exists");
+	                            $('#errUsername').val("error");
+	                        }
+	                    },
+	                });
+        	})
+        	
+
+	        $('#regform').submit(function (e) {
+	            e.preventDefault();
+	            var error = false;
+
+	            var fname 		= $('#fname').val();
+	            var lname 		= $('#lname').val();
+	            var email 		= $('#email').val();
+	            var username 	= $('#username').val();
+	            var password 	= $('#password').val();
+	            var cpassword	= $('#cpassword').val();
+	            var dob 		= $('#dob').val();
+	            var school 		= $('#school').val();
+	            var college 	= $('#college').val();
+	            var uni 		= $('#uni').val();
+	            var errEmail 	= $('#errEmail').val();
+	            var errUsername = $('#errUsername').val();
+
+	            if(fname == ""){
+	                $('#error1').html("Required field");
+	                error = true;
+	            }
+	            else{
+	                $('#error1').html("");
+	            }
+
+	            if(lname == ""){
+	                $('#error2').html("Required field");
+	                error = true;
+	            }
+	            else{
+	                $('#error2').html("");
+	            }
+	            if(email == ""){
+	                $('#error3').html("Required field");
+	                error = true;
+	            }
+	            else{
+	                $('#error3').html("");
+	            }
+
+	            if(username == ""){
+	                $('#error4').html("Required field");
+	                error = true;
+	            }
+	            else{
+	                $('#error4').html("");
+	            }
+
+	            if(password == ""){
+	                $('#error5').html("Required field");
+	                error = true;
+	            }
+	            else{
+	                $('#error5').html("");  
+	            }
+
+	            if(cpassword == ""){
+	                $('#error6').html("Required field");
+	                error = true;
+	            }
+	            else{
+	            	$('#error6').html(""); 
+
+	            	if(cpassword!=password){
+	            		$('#error7').html("Passwords don't match");
+	            		error=true;
+	            	}
+	            	else{
+	            		$('#error7').html("");
+	            	}
+	                 
+	            }
+	            if(!dob){
+	            	error = true;
+	            	$('#error8').html('Required field');
+	            }
+	            else{
+	            	$('#error8').html("");
+	            }
+	            
+	            if(errUsername=="error")
+	            {	
+	            	error=true;
+	            }
+	            
+	            if(errEmail=="error"){
+	            	error =true;
+	            }
+	            if(!error)
+	            {   
+	            	
+	                $.ajax({
+	                    url: '/registration',
+	                    method: 'POST',
+	                    dataType: 'JSON',
+	                    data:{
+	                        fname : fname,
+	            			lname : lname,
+	            			email : email,
+	            			username : username,
+	            			password : password,
+	            			dob : dob,
+	            			school : school,
+	            			college : college,
+	            			uni : uni,
+	                    },
+	                    success: function (data) {
+	                        if (data.status == 'valid') {
+	                            console.log('else');
+	                            window.location.href = '/login';
+	                        } else {
+	                            $('#warn-div').html('Username or Email already exists');
+	                        }
+	                    },
+	                });
+	            }
+	        });
+    	</script>
+    </body>
+</html>
+</body>
+</html>

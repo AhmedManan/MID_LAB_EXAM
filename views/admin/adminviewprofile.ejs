@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>ADMIN: view profile</title>
+
+  <link rel="stylesheet" href="../../assets/css/admin/bootstrap.min.css">
+
+ 
+
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Chotushkon</a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
+      data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <a class="nav-link" href="/logout">Sign out</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+        <div class="sidebar-sticky pt-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="/admin">
+                <span data-feather="home"></span>
+                Dashboard <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/report">
+                <span data-feather="file"></span>
+                Reports
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/users">
+                <span data-feather="shopping-cart"></span>
+                View Users
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/notice">
+                <span data-feather="users"></span>
+                Notice
+              </a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="">
+                <span data-feather="bar-chart-2"></span>
+                Reports
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <span data-feather="layers"></span>
+                Integrations
+              </a>
+            </li> -->
+          </ul>
+
+
+          </ul>
+        </div>
+      </nav>
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <div
+          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Dashboard</h1>
+          
+        </div>  
+
+        <div>
+          <h2> </h2>
+        </div>
+        <!-- <profile pic Name table> -->
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+            <table class="table table-image">
+              <thead>
+                <tr>
+                  <tr class="w-25">
+                    <img src="\assets\images\uploads\<%= result[0].backgroundimg%>" class="img-fluid img-thumbnail" alt="<%= result[0].username  %>">
+                  </tr>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="w-25">
+                    <img src="\assets\images\uploads\<%= result[0].displayimg%>" class="img-fluid img-thumbnail" alt="<%= result[0].fname %> <%= result[0].lname%>">
+                  </td>
+                  <td>
+                    <a class="btn btn-info" href=""><%= result[0].fname %> <%= result[0].lname%></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>   
+            </div>
+          </div>
+        </div>
+        <!--personal details table-->
+       
+        <div>
+          <h5 style="color:gray;"> about <%= result[0].fname  %> </h5>
+        </div>
+<div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">School</th>
+              <th scope="col">College</th>
+              <th scope="col">Univarsity</th>
+            </tr>
+          </thead>
+          <form method="post" action="/admin/updateprofile">
+
+            <input type="hidden" name="id" value="<%= result[0].id %>">
+          
+          <tbody>
+            <tr>
+              <td> <input  type="text" class="form-control" name="school" value="<%= result[0].school  %>" ></td>
+              <td> <input  type="text" class="form-control" name="college" value="<%= result[0].college  %>"></td>
+              <td> <input  type="text" class="form-control" name="university" value="<%= result[0].university  %>" ></td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+
+
+<div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Phone no</th>
+      <th scope="col">Birthday</th>
+      <th scope="col">username</th>
+      <th scope="col">Join Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> <input  type="text"  class="form-control" name="phone" value= "<%= result[0].phone  %> " ></td>
+      <td> <input  type="text" class="form-control" name="dob" value="<%= result[0].dob  %>" > </td>
+      <td> <input  type="text" class="form-control" name="" readonly value="<%= result[0].username  %>" > </td>
+      <td> <input  type="text" class="form-control" name="" readonly value="<%= result[0].joiningdate  %>" > </td>
+    </tr>
+  </tbody>
+
+  
+<div>
+  <h5 style="color:gray;">basic & contract info </h5>
+</div>
+
+</table>
+<input type="submit" class="btn btn-success" value="update">
+  
+</form>
+</div>
+
+
+
+
+
+
+<form class="mb-5 mt-3" action="/admin/deleteprofile" method="post">
+  <input type="hidden" name="id" value="<%= result[0].id %>">
+  <input type="hidden" name="postid" value="<%= result[0].id %>">
+  <%
+  if(result[0].username=="mnn"){
+
+  }
+  else{
+  %> 
+
+  <input type="submit" class="btn btn-danger "" value="Ban User">
+
+  <%
+
+  } 
+  %>
+</form>
+
+
+</main>
+</div>
+</div>
+
+
+
+      </main>
+    </div>
+  </div>
+ 
+
+  <script src="../../assets/css/admin/jquery-3.4.1.min.js"></script>
+  <script src="../../assets/css/admin/popper.min.js"></script>
+  <script src="../../assets/css/admin/bootstrap.min.js"></script>
+
+
+
+</body>
+
+</html>

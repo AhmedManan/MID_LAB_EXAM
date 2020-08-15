@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messaging</title>
+</head>
+
+<style>
+    td.left {
+        text-align: left;
+    }
+    td.right {
+        text-align: right;
+    }
+    div.listPeople{
+        white-space: nowrap; 
+        width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    tr.listUnseen{
+        font-weight: bold;
+    }
+
+    tr.currActive{
+        background-color: lightgrey;
+    }
+    
+    tr.list:hover{
+        cursor:pointer;
+        text-decoration:underline;
+    }
+
+    hr { 
+        display: block;
+        margin-top: -0.5em;
+        margin-bottom: -0.5em;
+        margin-left: auto;
+        margin-right: auto;
+        border-style: solid;
+        border-width: 1px;
+    } 
+    table#tblUnseen tr:last-child { 
+        border-bottom: 1px solid black; 
+    }
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/js/date.js"></script>
+<script>
+
+    var msg = "abc";
+
+$(document).ready(function(){
+
+    
+    var rows = JSON.parse('<%- JSON.stringify(data.rows)%>');
+    var list = JSON.parse('<%- JSON.stringify(data.list)%>');
+    var to = '<%-data.to%>'
+
+    $("#btnMsgPost").click(function(){
+        msg = $("#inpMsg").val();
+        if (msg != ""){
+        //$("#btnMsgPost").html("Button Clicked");
+        //console.log("msg to send: "+msg);
+        //console.log(location.href+"/postMsg");
+        $.post(location.href+"/postMsg",{msg : msg},function () {});
+        //$("#tblMsgShow").load(location.href + " #tblMsgShow");
+        $("#inpMsg").val("");
+        }
+    });
+
+    $('#tblList').on("click", "tr", (function(e){
+
+        /* console.log("ID: ");
+        console.log(e.currentTarget.id); */
+       $(location).prop('href','/message/'+e.currentTarget.id+'');
+    }));
+
+    
+
+    $('#inpMsg').on('keypress',function(e) {
+    if(e.which == 13) {
+        $('#btnMsgPost').trigger('click');
+    }
+    });
+
+    seenConv();
+
+    function seenConv(){
+        $.post(location.href+'/seenConv',{},function(){})
+    }
+
+    function showMsg(rows){
+        var finalMsg="";
+        rows.forEach(row => {
+            finalMsg+="<tr><td class="+row.msgAlign+">"+row.description+"</td></tr>";           
+            $('#tblMsgShow').html(finalMsg);
+        });
+    }
+
+    function msgUpdate(rows){
+        $.post(location.href+"/msgUpdate",{rows: JSON.stringify(rows)},function(resp){
+            if(resp.resp == 'changed'){
+                //console.log('changed    '+Date.now());
+                rows = resp.newrows;
+                showMsg(rows);
+            }
+        });
+    }
+
+    function listUpdate(list){
+        $.post(location.href+"/listUpdate",{list: JSON.stringify(list)},function(resp){
+            if(resp.resp == 'changed'){
+                //console.log('changed    '+Date.now());
+                list = resp.newlist;
+                showList(list);
+            }
+        });
+    }
+    
+    showMsg(rows);
+    showList(list);
+
+    setInterval(function(){
+        msgUpdate(rows);
+        listUpdate(list);
+    }, 500);
+
+    function showList(list){
+        var finalList="";
+        list.forEach(row => {
+            var timestring;
+            var divclass = '';
+            var currActive = '';
+            
+            if(Date.parse(row.time).toString('dd-mm-yyyy') == Date().toString('dd-mm-yyyy')) {
+                timestring = 'Today';
+            }
+            else {
+                timestring = Date.parse(row.time).toString('dd-mm-yyyy');
+            }
+            if(row.seen == 'unseen'){
+                divclass = ' listUnseen';
+            }
+            if(row.recipient == to){
+                currActive = ' currActive';
+            }
+                        
+            finalList+="<tr class='list"+divclass+currActive+"' id='"+row.recipient+"'><td width='100%'><div class='listPeople'>"+row.recipient+": "+row.description+"</div></td><td style='width: fit-content; text-align: right; white-space: nowrap;'>"+timestring+"</td></tr>";           
+            $('#tblList').html(finalList);
+        });
+    }
+});
+
+
+</script>
+
+
+<body>
+    <table border="1px" style="border-color: yellowgreen;">
+        <tr>
+            <td style="vertical-align: top;">
+                <table width="500px">
+                    <tr>
+                        <td>
+                            <table width="100%" id="tblList">
+                                
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table width="250px">
+                    <tr>
+                        <td>
+                            <table width = "100%" id="tblMsgShow" cellspacing="0" cellpadding="0">
+                               <!--  <script>
+                                    rows.forEach(row => {
+                                        document.write("<tr><td class="+row.msgAlign+"><div style='text-align: auto;'>"+row.description+"</div></td></tr>");
+            
+                                        
+                                    });
+                                </script> -->
+            
+                                
+                                
+                                <!-- <%/* data.rows.forEach(row => { */%>
+                                    <tr>
+                                        <td class="<%/*=data.roww.msgAlign*/%>">
+                                            <div style="text-align: auto;">
+                                                <%/*=data.row.description*/%>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <%/* }) */%> -->
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table width='100%'>
+                                <tr>
+                                    <td style="width: 100%;">
+                                        <input type="text" name="msg" id="inpMsg" style="width: 100%;">
+                                    </td>
+                                    <td style="width: min-content;">
+                                        <button id="btnMsgPost">Send</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>
