@@ -11,6 +11,7 @@ var message = require('./controllers/user/message');
 var page = require('./controllers/page');
 var user = require('./controllers/user');
 var admin = require('./controllers/admin/admin');
+var employee = require('./controllers/employee/employee');
 var logout = require('./controllers/logout');
 const cookieParser = require('cookie-parser');
 
@@ -41,7 +42,7 @@ app.listen(3000, function(){
 app.use('/home',home);
 app.use('/registration',reg);
 app.use('/admin',admin);
-
+app.use('/employee',employee);
 
 // changes
 // Errors => page not found 404
